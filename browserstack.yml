@@ -20,6 +20,7 @@ buildName: performance session
 # ${DATE_TIME}: Generates a Timestamp with every execution. Eg. 05-Nov-19:30
 # Read more about buildIdentifiers here -> https://www.browserstack.com/docs/automate/selenium/organize-tests
 buildIdentifier: '#${BUILD_NUMBER}' # Supports strings along with either/both ${expression}
+#buildIdentifier: 17
 # Set `framework` of your test suite. Example, `testng`, `cucumber`, `cucumber-testng`
 # This property is needed to send test context to BrowserStack (test name, status)
 framework: testng
@@ -30,7 +31,7 @@ framework: testng
 # Available options:
 # app: '/path/to/local/app.apk'
 # OR
-app: bs://9956628e64b1fe6243e24fafd2e3dec3b741a774
+app: bs://d9f5b1788f6e78946d4674b6733da1b05ce13f0a
 # Visit https://www.browserstack.com/docs/app-automate/appium/set-up-tests/specify-app for more options
 #app: ./WikipediaSample.apk
 
@@ -78,6 +79,8 @@ browserstackLocal: false # <boolean> (Default false)
 debug: true # <boolean> # Set to true if you need screenshots for every selenium command ran
 networkLogs: false # <boolean> Set to true to enable HAR logs capturing
 consoleLogs: errors # <string> Remote browser's console debug levels to be printed (Default: errors)
+autoGrantPermissions: true
+autoAcceptAlerts: true
 # Available options are `disable`, `errors`, `warnings`, `info`, `verbose` (Default: errors)
 # Test Observability is an intelligent test reporting & debugging product. It collects data using the SDK. Read more about what data is collected at https://www.browserstack.com/docs/test-observability/references/terms-and-conditions
 # Visit observability.browserstack.com to see your test reports and insights. To disable test observability, specify `testObservability: false` in the key below.
