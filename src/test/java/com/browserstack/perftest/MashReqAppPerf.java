@@ -63,6 +63,8 @@ public class MashReqAppPerf implements ITest {
         WebElement searchElement = (WebElement) wait.until(
                 ExpectedConditions.elementToBeClickable(AppiumBy.accessibilityId("Search Wikipedia")));
 
+        searchElement.isDisplayed();
+
         JavascriptExecutor jse = (JavascriptExecutor) getDriver();
 
         jse.executeScript("\"browserstack_executor\": {\"action\": \"setSessionName\", \"arguments\": {\"name\": \""+testName+"\"}}");
