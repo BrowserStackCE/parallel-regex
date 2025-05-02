@@ -1,6 +1,14 @@
 # Run tests in parallel to test API limits
 This repo is to run multiple tests in parallel across different devices using Dynamic device allocation
 
+## Pre-Requisites
+* Upload the app to BrowserStack and get the `bs:<url>` using the upload API in the below link
+```sh
+  curl -u "BROWSERSTACK_USERNAME:BROWSERSTACK_ACCESS_KEY" \
+  -X POST "https://api-cloud.browserstack.com/app-automate/upload" \
+  -F "file=@/path/to/app/file/application-debug.apk"  
+```
+
 ## Setup
 * Clone the repo
 * Install dependencies `mvn clean install`
