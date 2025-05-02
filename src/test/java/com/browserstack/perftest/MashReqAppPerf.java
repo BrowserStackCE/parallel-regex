@@ -67,7 +67,7 @@ public class MashReqAppPerf implements ITest {
 
         JavascriptExecutor jse = (JavascriptExecutor) getDriver();
 
-        jse.executeScript("\"browserstack_executor\": {\"action\": \"setSessionName\", \"arguments\": {\"name\": \""+testName+"\"}}");
+        jse.executeScript("browserstack_executor: {\"action\": \"setSessionName\", \"arguments\": {\"name\": \""+testName+"\"}}");
 
     }
 
