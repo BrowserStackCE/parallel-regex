@@ -4,61 +4,78 @@ import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumClientConfig;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.ITest;
+import org.testng.ITestContext;
+import org.testng.ITestNGMethod;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import java.net.URL;
 import java.time.Duration;
+import java.util.HashMap;
 
 
-public class MashReqAppPerf {
+public class MashReqAppPerf implements ITest {
 
-    public AndroidDriver driver;
+    private static ThreadLocal<AndroidDriver> driver = new ThreadLocal<>();
+    private int data;
 
-    @DataProvider(name = "testData", parallel = true)
-    public Object[][] createTestData() {
-        Object[][] data = new Object[50][1];
-        for (int i = 0; i < 50; i++) {
-            data[i][0] = i + 1; // Numbers 1 to 50
-        }
-        return data;
+    private String testName;
+
+    public AndroidDriver getDriver() {
+        return driver.get();
     }
+
+    public MashReqAppPerf(int data)
+    {
+        this.data=data;
+        this.testName = "MashReq API limit test "+data;
+    }
+
 
 
     @BeforeMethod(alwaysRun=true)
     public void setUp() throws Exception {
-
-        AppiumClientConfig clientConfig = AppiumClientConfig.defaultConfig()
-                .baseUrl(new URL("http://localhost:4444/wd/hub"))
-                .connectionTimeout(Duration.ofSeconds(180))
-                .readTimeout(Duration.ofSeconds(300)); // Example: 300 seconds
-
         MutableCapabilities capabilities = new UiAutomator2Options();
-        capabilities.setCapability("platformName", "android");
-        capabilities.setCapability("appium:platformVersion", "12.0");
-        capabilities.setCapability("appium:deviceName", "Samsung Galaxy S22 Ultra");
-        capabilities.setCapability("appium:app", "bs://9956628e64b1fe6243e24fafd2e3dec3b741a774");
-        driver = new AndroidDriver(clientConfig,capabilities);
+        HashMap<String, Object> bstackOptions = new HashMap<String, Object>();
+        bstackOptions.put("sessionName", testName);
+        capabilities.setCapability("bstack:options", bstackOptions);
+
+        AndroidDriver driverInstance = new AndroidDriver(new URL("http://localhost:4444/wd/hub"), capabilities);
+        driver.set(driverInstance);
+
+
     }
 
     //@Test(dataProvider = "testData")
     @Test
     public void testApp() throws Exception {
-        int data=1;
+        //int data=1;
         System.out.println("Test run "+ data);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(30));
         WebElement searchElement = (WebElement) wait.until(
                 ExpectedConditions.elementToBeClickable(AppiumBy.accessibilityId("Search Wikipedia")));
+
+        JavascriptExecutor jse = (JavascriptExecutor) getDriver();
+
+        jse.executeScript("\"browserstack_executor\": {\"action\": \"setSessionName\", \"arguments\": {\"name\": \""+testName+"\"}}");
 
     }
 
     @AfterMethod(alwaysRun=true)
     public void tearDown() throws Exception {
-        driver.quit();
+        getDriver().quit();
+    }
+
+    @Override
+    public String getTestName() {
+        return testName;
     }
 }

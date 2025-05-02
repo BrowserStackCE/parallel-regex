@@ -30,9 +30,9 @@ framework: testng
 # Available options:
 # app: '/path/to/local/app.apk'
 # OR
-# app: 'bs://<app-id>' # App URL returned when uploading the app to BrowserStack manually
+app: bs://9956628e64b1fe6243e24fafd2e3dec3b741a774
 # Visit https://www.browserstack.com/docs/app-automate/appium/set-up-tests/specify-app for more options
-app: ./WikipediaSample.apk
+#app: ./WikipediaSample.apk
 
 # =======================================
 # Platforms (Browsers / Devices to test)
@@ -63,8 +63,8 @@ source: testng:appium-intellij:v1.1.6
 # ==========================================
 # Set browserStackLocal to true if your website under test is not accessible publicly over the internet
 # Learn more about how BrowserStack Local works here -> https://www.browserstack.com/docs/automate/selenium/local-testing-introduction
-browserstackLocal: true # <boolean> (Default false)
-browserstackAutomation: false
+browserstackLocal: false # <boolean> (Default false)
+#browserstackAutomation: true
 # Options to be passed to BrowserStack local in-case of advanced configurations
 # browserStackLocalOptions:
   # localIdentifier: # <string> (Default: null) Needed if you need to run multiple instances of local.
@@ -82,3 +82,8 @@ consoleLogs: errors # <string> Remote browser's console debug levels to be print
 # Test Observability is an intelligent test reporting & debugging product. It collects data using the SDK. Read more about what data is collected at https://www.browserstack.com/docs/test-observability/references/terms-and-conditions
 # Visit observability.browserstack.com to see your test reports and insights. To disable test observability, specify `testObservability: false` in the key below.
 testObservability: true
+percy: false
+logLevel: debug
+appiumVersion: 2.12.1
+testContextOptions:
+  skipSessionName: true

@@ -3,7 +3,7 @@
 <suite name="AppiumTest" parallel="methods" thread-count="40">
     <test name="AppiumTest">
         <classes>
-            <class name="com.browserstack.perftest.MashReqAppPerf" />
+            <class name="com.browserstack.perftest.TestDataFactory" />
         </classes>
     </test>
 </suite>
