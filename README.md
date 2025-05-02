@@ -1,8 +1,6 @@
 # Run tests in parallel to test API limits
 This repo is to run multiple tests in parallel across different devices using Dynamic device allocation
 
-## Pre-Requisite
-
 ## Setup
 * Clone the repo
 * Install dependencies `mvn clean install`
