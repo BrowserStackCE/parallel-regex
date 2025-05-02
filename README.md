@@ -15,3 +15,17 @@ export BROWSERSTACK_ACCESS_KEY=<browserstack-access-key>
 app: bs://<url>
 ```
 * To run the test, execute command `mvn clean test`
+## Notes
+Presently the repo is configured to trigger 40 parallels. If you would like to change the number, you will have to update in three places
+* To trigger 80 tests in parallel, you can update the parallelsPerPlatform: 80 in the yml file . This can be updated to any number within your parallel license limit.
+* Update the dataProviderThreadCount to 80 in pom.xml
+```
+<property>
+    <name>dataproviderthreadcount</name>
+    <value>80</value>
+</property>
+```
+* Update the thread-count to 80 in the config/appium.testng xml file
+```
+<suite name="AppiumTest" parallel="methods" thread-count="80">
+```
